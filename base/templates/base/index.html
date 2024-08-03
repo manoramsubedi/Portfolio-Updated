@@ -1,0 +1,211 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+    <nav id="hamburger-nav">
+      <div class="logo">{{about.name}}</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </div>
+      </div>
+    </nav>
+
+<!-- PROFILE -->
+  
+    <section id="profile">
+      <div class="section__pic-container">
+        <img src="{{about.display_img.url}}" alt="{{about.name}} profile picture" />
+      </div>
+      <div class="section__text">
+        <p class="section__text__p1">Hello, I'm</p>
+        <h2 class="title">{{about.name}}</h2>
+        <p class="section__text__p2">{{about.title}}</p>
+        <div class="btn-container">
+          <button class="btn btn-color-2"
+            onclick="window.open('{% static 'ManoramSubedi.pdf' %}', '_blank')"
+          >
+            Download CV
+          </button>
+          <button class="btn btn-color-1" onclick="location.href='./#contact'">
+            Contact Info
+          </button>
+        </div>
+        <div id="socials-container">
+          {% for soc in social %}
+          <img
+            src="{{soc.social_img.url}}"
+            alt="My {{soc.name}} profile" class="icon"
+            onclick="location.href='{{soc.link}}'" />
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+<!-- ABOUT ME -->
+
+    <section id="about">
+      <p class="section__text__p1">Get To Know More</p>
+      <h1 class="title">About Me</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            src="{{about.img2.url}}"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="{% static 'base/icons/experience.png' %}" alt="Experience Icon"
+                alt="Experience icon"
+                class="icon" />
+              <h3>Experience</h3>
+              <p>6 months <br />{{about.title}}</p>
+            </div>
+
+            <div class="details-container">
+              <img
+                src= "{% static 'base/icons/education.png' %}" alt="Education Icon"
+                alt="Education icon"
+                class="icon" />
+              <h3>Education</h3>
+              <p>Higher Secondary (+2)<br />Bachelors in Information Technology (BIT)</p>
+            </div>
+          </div>
+
+          <div class="text-container">
+            <p>
+              {{about.text}}
+            </p>
+          </div>
+        </div>
+      </div>
+      <img
+        src="{% static 'base/icons/arrow.png' %}"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+
+<!-- EXPERIENCE -->
+    <section id="experience">
+      <p class="section__text__p1">Explore My</p>
+      <h1 class="title">Experience</h1>
+      
+      <div class="experience-details-container">
+          <div class="about-containers">
+            {% for exp in experience %}
+              <div class="details-container">
+                      <h2 class="experience-sub-title">{{ exp.title }}</h2>
+                      
+                      <div class="article-container">
+                        {% for skill in exp.skill.all %}
+                          <article>
+                              <img
+                                  src="{{ exp.experience_icon.url }}"
+                                  alt="{{skill.name}} icon"
+                                  class="icon"/>
+                     
+                                  <div>
+                                      <h3>{{ skill.name }}</h3>
+                                      <p>{{ skill.level }}</p>
+                                  </div>
+                                  
+                          </article>
+                          {% endfor %} 
+                      </div> 
+                      
+              </div> 
+              {% endfor %}
+          </div>
+      </div> 
+      
+<!-- PROJECTS -->
+
+      <img
+          src="{% static 'base/icons/arrow.png' %}"
+          alt="Arrow icon"
+          class="icon arrow"
+          onclick="location.href='#projects'"
+      />
+
+    <section id="projects">
+      <p class="section__text__p1">Browse My Recent</p>
+      <h1 class="title">Projects</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          {% for proj in project %}
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="{{proj.image.url}}"
+                alt="Project {{forloop.counter}}"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">{{proj.name}}</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='{{proj.link}}'"
+              >
+               Github
+              </button>
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='{{proj.link}}'"
+                disabled
+              >
+                Live Demo
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <img
+        src="{% static 'base/icons/arrow.png' %}"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#contact'"
+      />
+    </section>
+
+<!-- CONTACT -->
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p>
+      <h1 class="title">Contact Me</h1>
+      <div class="contact-info-upper-container">
+        {% for cont in contact %}
+        <div class="contact-info-container">
+          <img
+            src="{% static 'base/icons/email.png' %}"
+            alt="Email icon"
+            class="icon contact-icon email-icon"/>
+          <p><a href="mailto:manoramsubedi7@gmail.com">manoramsubedi7@gmail.com</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="{% static 'base/icons/linkedin.png' %}"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.linkedin.com/in/manoramsubedi/">LinkedIn</a></p>
+        </div>
+        {% endfor %}
+      </div>
+    </section> 
+  </body>
+{% endblock %}
